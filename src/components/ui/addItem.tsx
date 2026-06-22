@@ -14,7 +14,7 @@ import { Button, Host } from '@expo/ui';
 export default function AddItem() {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
-  const { items, setItems } = useItems();
+  const { addItem } = useItems();
 
   function saveNote() {
     if (!note.trim()){return;}
@@ -24,7 +24,7 @@ export default function AddItem() {
     name: note,
     };
 
-    setItems(prev => [...prev, newItem]);
+    addItem(note);
 
     setNote("");
     setOpen(false);
@@ -32,8 +32,10 @@ export default function AddItem() {
 
   return (
     <>
-      <Host>
-      <Button label="+" onPress={() => setOpen(true)} />
+      <Host style={styles.buttonHost}>
+      <Button
+      label="+"
+      onPress={() => setOpen(true)}/>
       </Host>
 
 
@@ -92,14 +94,11 @@ export default function AddItem() {
 
 const styles = StyleSheet.create({
 
-  button:{
-    width:60,
-    height:60,
-    borderRadius:30,
-    backgroundColor:"blue",
-    justifyContent:"center",
-    alignItems:"center",
-    paddingBottom:3,
+  buttonHost: {
+  width: 60,
+  height: 60,
+  justifyContent: "center",
+  alignItems: "center",
   },
 
   plus:{
