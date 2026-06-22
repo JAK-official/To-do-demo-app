@@ -1,20 +1,28 @@
-import { useState } from 'react';
-import { Host, List, ListItem, Text } from '@expo/ui';
+import { useState } from "react";
+import { Host, List, ListItem, Checkbox } from "@expo/ui";
+import { useItems } from "../../context/itemsContext";
 
-export default function CustomList({ items = [] }: { items?: any[] }) {
+export default function CustomList({
+  completed = false,
+}: {
+  completed?: boolean;
+}) {
   const [selected, setSelected] = useState<string | null>(null);
 
-   return (
+  const { items, completedItems, moveItem } = useItems();
+
+  const data = completed ? completedItems : items;
+
+  return (
     <Host style={{ flex: 1 }}>
       <List>
-        {items.map((item: any) => (
-          <ListItem
-            key={item.id}
-            onPress={() => setSelected(item.name)}
-          >
-            <Text style={{ color: 'white' }}>
-              {item.name}
-            </Text>
+        {data.map((item: any) => (
+          <ListItem key={item.id}>
+            <Checkbox
+              label={item.name}
+              value={completed}
+              onValueChange={() => moveItem(item.id, completed)}
+            />
           </ListItem>
         ))}
       </List>
