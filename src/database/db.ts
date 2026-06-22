@@ -1,3 +1,3 @@
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
-export const db = SQLite.openDatabaseSync('tasks.db');
+export const db = SQLite.openDatabaseSync("tasks.db");

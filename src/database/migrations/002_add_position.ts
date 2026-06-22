@@ -1,18 +1,13 @@
-import { db } from '../db';
-
+import { db } from "../db";
 
 export function up() {
-
   db.execSync(`
     ALTER TABLE tasks
     ADD COLUMN position INTEGER DEFAULT 0;
   `);
-
 }
 
-
 export function down() {
-
   db.execSync(`
     CREATE TABLE tasks_backup AS
     SELECT
@@ -47,5 +42,4 @@ export function down() {
     DROP TABLE tasks_backup;
 
   `);
-
 }

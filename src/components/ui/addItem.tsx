@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Pressable,
   Text,
@@ -6,10 +6,10 @@ import {
   Modal,
   TextInput,
   StyleSheet,
-} from 'react-native';
+} from "react-native";
 
-import { useItems } from '../../context/itemsContext';
-import { Button, Host } from '@expo/ui';
+import { useItems } from "../../context/itemsContext";
+import { Button, Host } from "@expo/ui";
 
 export default function AddItem() {
   const [open, setOpen] = useState(false);
@@ -17,11 +17,13 @@ export default function AddItem() {
   const { addItem } = useItems();
 
   function saveNote() {
-    if (!note.trim()){return;}
+    if (!note.trim()) {
+      return;
+    }
 
     const newItem = {
-    id: Date.now(),
-    name: note,
+      id: Date.now(),
+      name: note,
     };
 
     addItem(note);
@@ -33,25 +35,13 @@ export default function AddItem() {
   return (
     <>
       <Host style={styles.buttonHost}>
-      <Button
-      label="+"
-      onPress={() => setOpen(true)}/>
+        <Button label="+" onPress={() => setOpen(true)} />
       </Host>
 
-
-      <Modal
-        visible={open}
-        transparent
-        animationType="fade"
-      >
+      <Modal visible={open} transparent animationType="fade">
         <View style={styles.overlay}>
-
           <View style={styles.dialog}>
-
-            <Text style={styles.title}>
-              New Note
-            </Text>
-
+            <Text style={styles.title}>New Note</Text>
 
             <TextInput
               style={styles.input}
@@ -61,100 +51,76 @@ export default function AddItem() {
               onChangeText={setNote}
             />
 
-
             <View style={styles.row}>
-
-              <Pressable
-                onPress={() => setOpen(false)}
-              >
-                <Text style={styles.cancel}>
-                  Cancel
-                </Text>
+              <Pressable onPress={() => setOpen(false)}>
+                <Text style={styles.cancel}>Cancel</Text>
               </Pressable>
 
-
-              <Pressable
-                onPress={saveNote}
-              >
-                <Text style={styles.save}>
-                  Add
-                </Text>
+              <Pressable onPress={saveNote}>
+                <Text style={styles.save}>Add</Text>
               </Pressable>
-
             </View>
-
           </View>
-
         </View>
       </Modal>
     </>
   );
 }
 
-
 const styles = StyleSheet.create({
-
   buttonHost: {
-  width: 60,
-  height: 60,
-  justifyContent: "center",
-  alignItems: "center",
+    width: 60,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
-  plus:{
-    color:"white",
-    fontSize:35,
-    textAlign:"center",
+  plus: {
+    color: "white",
+    fontSize: 35,
+    textAlign: "center",
   },
 
-
-  overlay:{
-    flex:1,
-    backgroundColor:"black",
-    justifyContent:"center",
-    padding:20,
+  overlay: {
+    flex: 1,
+    backgroundColor: "black",
+    justifyContent: "center",
+    padding: 20,
   },
 
-
-  dialog:{
-    backgroundColor:"black",
-    padding:20,
-    borderRadius:15,
+  dialog: {
+    backgroundColor: "black",
+    padding: 20,
+    borderRadius: 15,
   },
 
-
-  title:{
-    color:"white",
-    fontSize:22,
-    marginBottom:15,
+  title: {
+    color: "white",
+    fontSize: 22,
+    marginBottom: 15,
   },
 
-
-  input:{
-    backgroundColor:"grey",
-    color:"white",
-    padding:12,
-    borderRadius:10,
+  input: {
+    backgroundColor: "grey",
+    color: "white",
+    padding: 12,
+    borderRadius: 10,
   },
 
-
-  row:{
-    flexDirection:"row",
-    justifyContent:"flex-end",
-    gap:20,
-    marginTop:20,
+  row: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 20,
+    marginTop: 20,
   },
 
-
-  cancel:{
-    color:"#aaa",
-    fontSize:16,
+  cancel: {
+    color: "#aaa",
+    fontSize: 16,
   },
 
-
-  save:{
-    color:"white",
-    fontSize:16,
-  }
-
+  save: {
+    color: "white",
+    fontSize: 16,
+  },
 });

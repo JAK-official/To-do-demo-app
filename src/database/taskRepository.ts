@@ -1,5 +1,4 @@
-import { db } from './db';
-
+import { db } from "./db";
 
 export function getTasks() {
   return db.getAllSync<{
@@ -13,13 +12,11 @@ export function getTasks() {
     SELECT *
     FROM tasks
     ORDER BY position ASC
-    `
+    `,
   );
 }
 
-
 export function insertTask(title: string) {
-
   const result = db.runSync(
     `
     INSERT INTO tasks
@@ -31,49 +28,31 @@ export function insertTask(title: string) {
     )
     VALUES (?, ?, ?, ?)
     `,
-    [
-      title,
-      0,
-      0,
-      new Date().toISOString()
-    ]
+    [title, 0, 0, new Date().toISOString()],
   );
 
-
   return {
-    id: result.lastInsertRowId
+    id: result.lastInsertRowId,
   };
 }
 
-
-export function updateTaskCompleted(
-  id: number,
-  completed: number
-) {
-
+export function updateTaskCompleted(id: number, completed: number) {
   db.runSync(
     `
     UPDATE tasks
     SET completed = ?
     WHERE id = ?
     `,
-    [
-      completed,
-      id
-    ]
+    [completed, id],
   );
-
 }
 
-
-export function deleteTask(id:number) {
-
+export function deleteTask(id: number) {
   db.runSync(
     `
     DELETE FROM tasks
     WHERE id = ?
     `,
-    [id]
+    [id],
   );
-
 }

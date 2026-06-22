@@ -1,8 +1,6 @@
-import { db } from '../db';
-
+import { db } from "../db";
 
 export function up() {
-
   db.execSync(`
     CREATE TABLE IF NOT EXISTS tasks (
 
@@ -16,15 +14,10 @@ export function up() {
 
     );
   `);
-
 }
 
-
-
 export function down() {
-
   db.execSync(`
     DROP TABLE IF EXISTS tasks;
   `);
-
 }
