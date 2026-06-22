@@ -7,6 +7,7 @@ import ListExample from '@/components/ui/list';
 import { List } from '@expo/ui';
 import CustomList from '@/components/ui/list';
 import AddItem from '@/components/ui/addItem';
+import { useState } from 'react';
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -27,18 +28,31 @@ function getDevMenuHint() {
   );
 }
 
-var listItems = [
-  { id: 1, name: 'Avocado toast' },
-  { id: 2, name: 'Bagel with cream cheese' },
-  { id: 3, name: 'Cappuccino' },
-];
+
+ 
 
 
 
 export default function HomeScreen() {
+
+  const [listItems, setListItems] = useState([
+    { id: 1, name: 'Avocado toast' },
+    { id: 2, name: 'Bagel with cream cheese' },
+    { id: 3, name: 'Cappuccino' },
+  ]);
+
+   function addItem(text: any) {
+    const newItem = {
+      id: Date.now(),
+      name: text,
+    };
+
+    setListItems(prev => [...prev, newItem]);
+  }
+
   return (
     <ThemedView type="background" style={styles.container}>
-      <CustomList items={listItems} />
+      <CustomList />
       <View style={styles.addButton}>
         <AddItem />
       </View>

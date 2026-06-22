@@ -8,14 +8,22 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import { useItems } from '../../context/itemsContext';
+
 export default function AddItem() {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
+  const { items, setItems } = useItems();
 
   function saveNote() {
-    if (!note.trim()) return;
+    if (!note.trim()){return;}
 
-    console.log("New note:", note);
+    const newItem = {
+    id: Date.now(),
+    name: note,
+    };
+
+    setItems(prev => [...prev, newItem]);
 
     setNote("");
     setOpen(false);
