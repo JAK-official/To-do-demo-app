@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { useItems } from '../../context/itemsContext';
+import { Button, Host } from '@expo/ui';
 
 export default function AddItem() {
   const [open, setOpen] = useState(false);
@@ -31,12 +32,9 @@ export default function AddItem() {
 
   return (
     <>
-      <Pressable
-        style={styles.button}
-        onPress={() => setOpen(true)}
-      >
-        <Text style={styles.plus}>+</Text>
-      </Pressable>
+      <Host>
+      <Button label="+" onPress={() => setOpen(true)} />
+      </Host>
 
 
       <Modal
