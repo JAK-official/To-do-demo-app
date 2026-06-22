@@ -18,8 +18,22 @@ const migrations = [
   }
 ];
 
+const LATEST_VERSION =
+  Math.max(...migrations.map(m => m.version));
 
-export function migrate(){
+export function migrate( targetVersion = LATEST_VERSION){
+
+   if (targetVersion < 0) {
+    throw new Error(`Invalid migration version: ${targetVersion}`);
+  }
+
+  if (targetVersion > LATEST_VERSION) {
+    throw new Error(
+      `Migration ${targetVersion} does not exist. Latest is ${LATEST_VERSION}`,
+    );
+  }
+
+  
     console.log("Running migrations...");
 
   initMigrationTable();
@@ -27,33 +41,89 @@ export function migrate(){
 
   let current =
     getCurrentVersion();
-    console.log("DB version:", current);
+
+    console.log(
+    `Database: ${current} → ${targetVersion}`
+  );
 
 
-  for(const migration of migrations){
+  while (current < targetVersion) {
 
-    if(migration.version > current){
+    const migration = migrations.find(
+      m => m.version === current + 1
+    );
 
-      db.execSync('BEGIN');
+    if (!migration) break;
 
-      try {
 
-        migration.up();
+    db.execSync('BEGIN');
 
-        setVersion(
-          migration.version
-        );
+    try {
 
-        db.execSync('COMMIT');
+      migration.up();
 
-      } catch(e){
+      setVersion(
+        migration.version
+      );
 
-        db.execSync('ROLLBACK');
+      db.execSync('COMMIT');
 
-        throw e;
-      }
+
+      current = migration.version;
+
+
+    } catch(e) {
+
+      db.execSync('ROLLBACK');
+
+      throw e;
     }
   }
+
+
+
+
+  
+  while (current > targetVersion) {
+
+    const migration = migrations.find(
+      m => m.version === current
+    );
+
+    if (!migration) break;
+
+
+    db.execSync('BEGIN');
+
+    try {
+
+      migration.down();
+
+
+      db.runSync(
+        `
+        DELETE FROM migrations
+        WHERE version = ?
+        `,
+        [migration.version]
+      );
+
+
+      db.execSync('COMMIT');
+
+
+      current = migration.version - 1;
+
+
+    } catch(e) {
+
+      db.execSync('ROLLBACK');
+
+      throw e;
+    }
+  }
+  
+  
 
 }
 
