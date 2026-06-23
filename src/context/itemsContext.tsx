@@ -4,6 +4,7 @@ import {
   insertTask,
   updateTaskCompleted,
   updateTaskPosition,
+  deleteTask,
 } from "@/database/taskRepository";
 
 const ItemsContext = createContext<any>(null);
@@ -96,6 +97,16 @@ export function ItemsProvider({ children }) {
     });
   }
 
+  function removeItem(id: number, completed: boolean) {
+    deleteTask(id);
+
+    if (completed) {
+      setCompletedItems((prev) => prev.filter((item) => item.id !== id));
+    } else {
+      setItems((prev) => prev.filter((item) => item.id !== id));
+    }
+  }
+
   return (
     <ItemsContext.Provider
       value={{
@@ -105,6 +116,7 @@ export function ItemsProvider({ children }) {
         moveItem,
         loadTasks,
         reorderItems,
+        removeItem,
       }}
     >
       {children}
