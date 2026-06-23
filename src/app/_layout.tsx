@@ -3,7 +3,6 @@ import { useColorScheme } from "react-native";
 
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import AppTabs from "@/components/app-tabs";
-import ListExample from "@/components/ui/list";
 import { ItemsProvider } from "@/context/itemsContext";
 import { migrate } from "@/database/migrations";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

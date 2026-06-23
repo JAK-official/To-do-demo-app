@@ -18,6 +18,7 @@ import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import CustomList from "@/components/ui/list";
 import AddItem from "@/components/ui/addItem";
+import AnimatedReorderList from "@/components/ui/animatedReorder";
 
 export default function TabTwoScreen() {
   const safeAreaInsets = useSafeAreaInsets();
@@ -41,21 +42,21 @@ export default function TabTwoScreen() {
   });
 
   return (
-    <ThemedView type="background" style={styles.container}>
-      <CustomList completed={true} />
+    <View style={styles.container}>
+      <AnimatedReorderList completed={true} />
+
       <View style={styles.addButton}>
         <AddItem />
       </View>
-    </ThemedView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    flexDirection: "row",
     paddingTop: 120,
+    backgroundColor: "black",
   },
 
   addButton: {
