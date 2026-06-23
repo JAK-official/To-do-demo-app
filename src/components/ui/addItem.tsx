@@ -21,11 +21,6 @@ export default function AddItem() {
       return;
     }
 
-    const newItem = {
-      id: Date.now(),
-      name: note,
-    };
-
     addItem(note);
 
     setNote("");
