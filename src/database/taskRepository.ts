@@ -21,7 +21,7 @@ export function insertTask(title: string) {
     `
     SELECT MAX(position) as maxPosition
     FROM tasks
-    `
+    `,
   );
 
   const position = (result?.maxPosition ?? -1) + 1;
@@ -37,12 +37,7 @@ export function insertTask(title: string) {
     )
     VALUES (?, ?, ?, ?)
     `,
-    [
-      title,
-      0,
-      position,
-      new Date().toISOString(),
-    ],
+    [title, 0, position, new Date().toISOString()],
   );
 
   return {
@@ -71,16 +66,13 @@ export function deleteTask(id: number) {
   );
 }
 
-export function updateTaskPosition(
-  id: number,
-  position: number
-) {
+export function updateTaskPosition(id: number, position: number) {
   db.runSync(
     `
     UPDATE tasks
     SET position = ?
     WHERE id = ?
     `,
-    [position, id]
+    [position, id],
   );
 }
