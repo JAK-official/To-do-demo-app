@@ -3,6 +3,7 @@ import {
   getTasks,
   insertTask,
   updateTaskCompleted,
+  updateTaskPosition,
 } from "@/database/taskRepository";
 
 const ItemsContext = createContext<any>(null);
@@ -78,6 +79,12 @@ export function ItemsProvider({ children }) {
     } else {
       setCompletedItems(newData);
     }
+    newData.forEach((item, index) => {
+      updateTaskPosition(
+        item.id,
+        index
+      );
+    });
   }
 
   return (
@@ -88,7 +95,7 @@ export function ItemsProvider({ children }) {
         addItem,
         moveItem,
         loadTasks,
-        reorderItems
+        reorderItems,
       }}
     >
       {children}
