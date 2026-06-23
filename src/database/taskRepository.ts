@@ -17,7 +17,16 @@ export function getTasks() {
 }
 
 export function insertTask(title: string) {
-  const result = db.runSync(
+  const result = db.getFirstSync<{ maxPosition: number }>(
+    `
+    SELECT MAX(position) as maxPosition
+    FROM tasks
+    `,
+  );
+
+  const position = (result?.maxPosition ?? -1) + 1;
+
+  const insert = db.runSync(
     `
     INSERT INTO tasks
     (
@@ -28,11 +37,11 @@ export function insertTask(title: string) {
     )
     VALUES (?, ?, ?, ?)
     `,
-    [title, 0, 0, new Date().toISOString()],
+    [title, 0, position, new Date().toISOString()],
   );
 
   return {
-    id: result.lastInsertRowId,
+    id: insert.lastInsertRowId,
   };
 }
 
@@ -54,5 +63,16 @@ export function deleteTask(id: number) {
     WHERE id = ?
     `,
     [id],
+  );
+}
+
+export function updateTaskPosition(id: number, position: number) {
+  db.runSync(
+    `
+    UPDATE tasks
+    SET position = ?
+    WHERE id = ?
+    `,
+    [position, id],
   );
 }
