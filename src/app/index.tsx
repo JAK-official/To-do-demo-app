@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 120,
-    backgroundColor: "#fff",
+    backgroundColor: "black",
   },
 
   addButton: {
