@@ -8,6 +8,8 @@ import { List } from "@expo/ui";
 import CustomList from "@/components/ui/list";
 import AddItem from "@/components/ui/addItem";
 import { useState } from "react";
+import ReorderList from "@/components/ui/animatedReorder";
+import AnimatedReorderList from "@/components/ui/animatedReorder";
 
 function getDevMenuHint() {
   if (Platform.OS === "web") {
@@ -45,21 +47,21 @@ export default function HomeScreen() {
   }
 
   return (
-    <ThemedView type="background" style={styles.container}>
-      <CustomList />
+    <View style={styles.container}>
+      <AnimatedReorderList />
+
       <View style={styles.addButton}>
         <AddItem />
       </View>
-    </ThemedView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    flexDirection: "row",
     paddingTop: 120,
+    backgroundColor: "#fff",
   },
 
   addButton: {

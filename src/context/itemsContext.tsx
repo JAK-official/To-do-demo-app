@@ -72,6 +72,14 @@ export function ItemsProvider({ children }) {
     }
   }
 
+  function reorderItems(list, newData) {
+    if (list === "items") {
+      setItems(newData);
+    } else {
+      setCompletedItems(newData);
+    }
+  }
+
   return (
     <ItemsContext.Provider
       value={{
@@ -80,6 +88,7 @@ export function ItemsProvider({ children }) {
         addItem,
         moveItem,
         loadTasks,
+        reorderItems
       }}
     >
       {children}
