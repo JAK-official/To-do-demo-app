@@ -46,7 +46,7 @@ describe("AddItem", () => {
     await fireEvent.press(result.getByText("+"));
 
     expect(
-      await result.findByPlaceholderText("Write something...")
+      await result.findByPlaceholderText("Write something..."),
     ).toBeTruthy();
   });
 
@@ -62,9 +62,7 @@ describe("AddItem", () => {
     expect(mockedAddItem).toHaveBeenCalledWith("Milk");
 
     await waitFor(() => {
-      expect(
-        result.queryByPlaceholderText("Write something...")
-      ).toBeNull();
+      expect(result.queryByPlaceholderText("Write something...")).toBeNull();
     });
   });
 
@@ -86,15 +84,13 @@ describe("AddItem", () => {
     await fireEvent.press(result.getByText("+"));
 
     expect(
-      await result.findByPlaceholderText("Write something...")
+      await result.findByPlaceholderText("Write something..."),
     ).toBeTruthy();
 
     await fireEvent.press(result.getByText("Cancel"));
 
     await waitFor(() => {
-      expect(
-        result.queryByPlaceholderText("Write something...")
-      ).toBeNull();
+      expect(result.queryByPlaceholderText("Write something...")).toBeNull();
     });
   });
 
@@ -109,9 +105,8 @@ describe("AddItem", () => {
 
     await fireEvent.press(result.getByText("+"));
 
-    const reopenedInput = await result.findByPlaceholderText(
-      "Write something..."
-    );
+    const reopenedInput =
+      await result.findByPlaceholderText("Write something...");
 
     expect(reopenedInput.props.value).toBe("");
   });
