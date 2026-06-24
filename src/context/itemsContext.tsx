@@ -17,10 +17,10 @@ export function ItemsProvider({ children }) {
     loadTasks();
   }, []);
 
-  function loadTasks() {
+  async function loadTasks() {
     console.log("Loading tasks...");
 
-    const tasks = getTasks();
+    const tasks = await getTasks();
     console.log("Tasks from DB:", tasks);
     const active = tasks
       .filter((task) => task.completed === 0)
