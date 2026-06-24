@@ -49,8 +49,15 @@
     "test": "jest --watchAll"
   },
   "jest": {
-    "preset": "jest-expo",
-    "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
+  "preset": "jest-expo",
+  "setupFilesAfterEnv": [
+    "<rootDir>/jest.setup.ts"
+  ],
+  "moduleNameMapper": {
+  "^@/(.*)\\.css$": "<rootDir>/jest.styleMock.js",
+  "^.+\\.css$": "<rootDir>/jest.styleMock.js",
+  "^@/(.*)$": "<rootDir>/src/$1"
+  }
   },
   "private": true
 }
